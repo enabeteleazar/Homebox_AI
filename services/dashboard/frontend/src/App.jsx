@@ -93,7 +93,7 @@ function App() {
       loadSystem();
       loadDocker();
       loadHealth();
-    }, 5000);
+    }, 1000);
 
     return () => clearInterval(interval);
   }, []);
