@@ -1,16 +1,21 @@
+
 #!/bin/bash
 
 # ========================================
 # HomeBox Update Script with Telegram notifications
 # ========================================
 
+set -a
+source /opt/Labo/Env/.env
+set +a
+
 set -e
 
 # ---------------------------
 # CONFIG TELEGRAM
 # ---------------------------
-TELEGRAM_BOT_TOKEN="TON_TOKEN_ICI"
-TELEGRAM_CHAT_ID="TON_CHAT_ID_ICI"
+echo "TELEGRAM_BOT_TOKEN : $TELEGRAM_BOT_TOKEN"
+echo "TELEGRAM_CHAT_ID : $TELEGRAM_CHAT_ID"
 
 send_telegram() {
     local MESSAGE=$1
