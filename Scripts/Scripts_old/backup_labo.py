@@ -12,7 +12,7 @@ import shutil
 from datetime import datetime
 
 # Configuration
-USB_DEVICE = "/dev/sdc1"
+USB_DEVICE = "/dev/sdb1"
 MOUNT_POINT = "/mnt/usb-storage"
 SOURCE_DIR = "/opt/Labo"
 BACKUP_DIR = f"{MOUNT_POINT}/Backup"
