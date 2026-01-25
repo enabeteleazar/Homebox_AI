@@ -3,22 +3,23 @@
 
 # ~/homebox/bash/start_all.sh
 
-HOMEBOX_DIR="$HOME/homebox"
+HOMEBOX_DIR="/opt/Labo/Services"
 SERVICES=(
-    "portainer"
-    "homeassistant"
-    "monitoring"
-    "dashboard"
-    "_nginx-proxy"
-    "_neron/bot"
-    "_neron/ollama"
-    "_neron/n8n"
-    "_neron/node-red"
+    "Beszel"
+    "Cadvisor"
+    "Dashboard"
+    "Grafana"
+    "HomeAssistant"
+    "n8n"
+    "NginxProxy"
+    "Node-Red"
+    "Portainer"
+    "Prometheus"
 )
 
-echo "🚀 Démarrage de HomeBox..."
+echo "🚀 Démarrage des Services ..."
 
-# Créer le réseau s'il n'existe pas
+# Créer le réseau s'il n'existe pa
 if ! docker network ls | grep -q "Homebox"; then
     echo "📡 Création du réseau Homebox..."
     docker network create Homebox
@@ -29,7 +30,7 @@ for service in "${SERVICES[@]}"; do
     if [ -d "$HOMEBOX_DIR/$service" ]; then
         echo "▶️  Démarrage de $service..."
         cd "$HOMEBOX_DIR/$service"
-        docker compose up -d --build
+        docker compose --env-file /opt/Labo/Env/.env  up -d --build
     else
         echo "⚠️  Dossier $service introuvable"
     fi
