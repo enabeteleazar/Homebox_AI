@@ -67,3 +67,8 @@ desktop.ini
 labo/
 *.wav
 test.wav
+
+# Python virtual environment
+venv/
+.env
+__pycache__/
