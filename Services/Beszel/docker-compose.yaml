@@ -18,9 +18,9 @@ services:
       - "${BESZEL_HTTP}:8090"
 
     networks:
-      - Homebox
+      - Homebox_Network
 
 networks:
-  Homebox:
+  Homebox_Network:
     name: ${HOMEBOX_NETWORK}
     external: true

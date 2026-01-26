@@ -11,7 +11,7 @@ services:
     depends_on:
       - dashboard-backend
     networks:
-      - Homebox
+      - Homebox_Network
 
   dashboard-backend:
     build: ./backend
@@ -30,9 +30,9 @@ services:
     ports:
       - "5000:5000"
     networks:
-      - Homebox
+      - Homebox_Network
 
 networks:
-  Homebox:
-    name: Homebox
+  Homebox_Network:
+    name: Homebox_Network
     external: true

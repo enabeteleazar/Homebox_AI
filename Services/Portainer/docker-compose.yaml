@@ -23,9 +23,9 @@ services:
       - "${PORTAINER_HTTPS}:9443"
 
     networks:
-      - Homebox
+      - Homebox_Network
 
 networks:
-  Homebox:
+  Homebox_Network:
     name: ${HOMEBOX_NETWORK}
     external: true

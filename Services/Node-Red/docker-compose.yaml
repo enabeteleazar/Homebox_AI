@@ -25,9 +25,9 @@ services:
     user: "${PUID}:${PGID}" # permissions utilisateur (optionnel)
 
     networks:
-      - Homebox
+      - Homebox_Homebox
 
 networks:
-  Homebox:
+  Homebox_Homebox:
     name: ${HOMEBOX_NETWORK}
-    external: true
+    external: true 

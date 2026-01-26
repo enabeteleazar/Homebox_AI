@@ -27,9 +27,9 @@ services:
     privileged: true # nécessaire pour cAdvisor
 
     networks:
-      - Homebox
+      - Homebox_Network
 
 networks:
-  Homebox:
+  Homebox_Network:
     name: ${HOMEBOX_NETWORK}
     external: true

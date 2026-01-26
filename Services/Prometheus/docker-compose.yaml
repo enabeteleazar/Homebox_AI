@@ -27,9 +27,9 @@ services:
       - '--web.enable-lifecycle' # permet le reload de la config via API
 
     networks:
-      - Homebox
+      - Homebox_Network
 
 networks:
-  Homebox:
+  Homebox_Network:
     name: ${HOMEBOX_NETWORK}
     external: true

@@ -23,9 +23,9 @@ services:
       - "${HOMEASSISTANT_HTTP}:8123"
 
     networks:
-      - Homebox
+      - Homebox_Network
 
 networks:
-  Homebox:
+  Homebox_Network:
     name: ${HOMEBOX_NETWORK}
     external: true
