@@ -1,20 +1,19 @@
-
 #!/bin/bash
 
 # ~/homebox/bash/start_all.sh
 
-HOMEBOX_DIR="/opt/Labo/Services"
+HOMEBOX_DIR="/opt/Homebox_AI/Services"
 SERVICES=(
-    "Beszel"
-    "Cadvisor"
-    "Dashboard"
-    "Grafana"
-    "HomeAssistant"
-    "n8n"
-    "NginxProxy"
-    "Node-Red"
-    "Portainer"
-    "Prometheus"
+    	"Beszel"
+    	"Cadvisor"
+    	"Grafana"
+    	"HomeAssistant"
+    	"n8n"
+    	"NginxProxy"
+    	"Node-Red"
+    	"Portainer"
+    	"Prometheus"
+	"Pythonista"
 )
 
 echo "🚀 Démarrage des Services ..."
@@ -30,7 +29,7 @@ for service in "${SERVICES[@]}"; do
     if [ -d "$HOMEBOX_DIR/$service" ]; then
         echo "▶️  Démarrage de $service..."
         cd "$HOMEBOX_DIR/$service"
-        docker compose --env-file /opt/Labo/Env/.env  up -d --build
+        docker compose --env-file /opt/Homebox_AI/Env/.env  up -d --build
     else
         echo "⚠️  Dossier $service introuvable"
     fi

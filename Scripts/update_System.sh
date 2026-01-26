@@ -5,7 +5,7 @@
 # ========================================
 
 set -a
-source /opt/Labo/Env/.env
+source /opt/Homebox_AI/Env/.env
 set +a
 
 set -e

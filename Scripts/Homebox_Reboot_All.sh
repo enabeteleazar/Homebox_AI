@@ -2,7 +2,7 @@
 # Script pour fixer permissions et relancer les services Homebox
 
 # --- Variables ---
-DOCKER_DATA_PATH="/opt/Labo/Data"
+DOCKER_DATA_PATH="/opt/Homebox_AI/Data"
 PUID=1000
 PGID=1000
 
@@ -40,11 +40,6 @@ echo "Tous les dossiers et permissions sont prêts."
 
 # --- Relance Docker ---
 echo "Relance des conteneurs Homebox..."
-docker compose up -d grafana
-docker compose up -d homeassistant
-docker compose up -d node-red
-docker compose up -d prometheus
-docker compose up -d n8n
-
+bash Homebox_Start_All.sh
 echo "Tous les services ont été relancés."
 echo "Vérifie les logs avec : docker logs -f <nom_du_service>"

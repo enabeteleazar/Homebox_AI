@@ -2,6 +2,18 @@
 
 echo -e "\033[1;34m[HOMEBOX] Vérification de l'état des services...\033[0m" 
 services=(
+"Beszel"
+        "Cadvisor"
+        "Grafana"
+        "HomeAssistant"
+        "n8n"
+        "NginxProxy"
+        "Node-Exporter"
+        "Node-Red"
+        "Portainer"
+        "Prometheus"
+        "Pythonista"
+
 "portainer"
 "nginx-proxy"
 "cadvisor"

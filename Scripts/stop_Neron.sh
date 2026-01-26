@@ -1,11 +1,9 @@
 #!/bin/bash
 #!/bin/bash
 # Script d'extinction de la stack Néron
-# Chemin : /homebox/stop_neron.sh
 
-ROOT="/home/eleazar/homebox"
-ENV_FILE="$ROOT/.env"
-NERON_DIR="$ROOT/services/neron"
+ENV_FILE="/opt/Homebox_AI/Env/.env"
+NERON_DIR="/opt/Neron_AI"
 
 echo "======================================"
 echo "        🚀 Extinction de NÉRON"

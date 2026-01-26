@@ -5,7 +5,7 @@
 # ========================================
 
 set -a
-source /opt/Labo/Env/.env
+source /opt/Homebox_AI/Env/.env
 set +a
 
 set -e
@@ -13,9 +13,6 @@ set -e
 # ---------------------------
 # CONFIG TELEGRAM
 # ---------------------------
-echo "TELEGRAM_BOT_TOKEN : $TELEGRAM_BOT_TOKEN"
-echo "TELEGRAM_CHAT_ID : $TELEGRAM_CHAT_ID"
-
 send_telegram() {
     local MESSAGE=$1
     curl -s -X POST "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendMessage" \
@@ -25,10 +22,10 @@ send_telegram() {
 }
 
 # === CONFIGURATION ===
-SOURCE="/opt/Labo"  			# Dossier à sauvegarder
-DEST="/mnt/usb-storage/Backup"          # Dossier de destination
-LOG="$DEST/backup.log"                  # Fichier de log
-MAX_BACKUPS=5                           # Nombre max de backups à conserver
+SOURCE="/opt/Neron_AI"				# Dossier à sauvegarder
+DEST="/mnt/usb-storage/Backup/Neron_AI"		# Dossier de destination
+LOG="$DEST/backup.log"               		# Fichier de log
+MAX_BACKUPS=5                           	# Nombre max de backups à conserver
 
 # === SCRIPT ===
 DATE=$(date +"%Y-%m-%d_%H-%M-%S")
@@ -53,4 +50,4 @@ if [ "$BACKUPS_COUNT" -gt "$MAX_BACKUPS" ]; then
     echo "$(date +"%Y-%m-%d %H:%M:%S") - Suppression des anciens backups pour ne garder que $MAX_BACKUPS." >> "$LOG"
 fi
 
-send_telegram "🎉 *HomeBox Backup* : La sauvegarde a été effecutée ! ✅"
+send_telegram "🎉 *Neron_AI Backup* : La sauvegarde a été effecutée ! ✅"
