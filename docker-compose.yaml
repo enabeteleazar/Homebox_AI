@@ -1,0 +1,104 @@
+####################
+###   CORE      ###
+##################
+
+services:
+
+  portainer:
+    image: portainer/portainer-ce:latest
+
+    container_name: portainer
+    restart: unless-stopped
+
+    privileged: true
+    security_opt:
+      - no-new-privileges:true
+
+    volumes:
+      - /etc/localtime:/etc/localtime:ro # pour synchroniser l'heure avec l'hôte
+      - /var/run/docker.sock:/var/run/docker.sock:ro # socket associé à Docker
+
+      - ${DOCKER_DATA_PATH}/portainer/data:/data  # Chemin absolu cohérent
+
+    ports:
+      - "${PORTAINER_HTTP}:9000"
+      - "${PORTAINER_HTTPS}:9443"
+
+    networks:
+      - Homebox_Network
+
+#####
+  pythonista:
+    build: ./Services/Core/Pythonista
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=production
+      - FLASK_ENV=production
+    restart: always
+
+    networks:
+      - Homebox_Network
+
+#####
+  nginx-proxy-manager:
+    image: jc21/nginx-proxy-manager:latest
+
+    container_name: nginx-proxy-manager
+    restart: unless-stopped
+
+    security_opt:
+      - no-new-privileges:true
+
+#    environment:
+    # Connexion à la base de données
+#  DB_MYSQL_HOST: "nginx-proxy-manager-db"
+#  DB_MYSQL_PORT: 3306
+#  DB_MYSQL_USER: "${NPM_DB_USER}"
+#  DB_MYSQL_PASSWORD: "${NPM_DB_PASSWORD}"
+#  DB_MYSQL_NAME: "${NPM_DB_NAME}"
+
+    volumes:
+      - /etc/localtime:/etc/localtime:ro # pour synchroniser l'heure avec l'hôte
+      - ${DOCKER_DATA_PATH}/nginx-proxy-manager/data:/data
+      - ${DOCKER_DATA_PATH}/nginx-proxy-manager/letsencrypt:/etc/letsencrypt
+
+    ports:
+      - "${NPM_HTTP}:80"       # Port HTTP public
+      - "${NPM_HTTPS}:443"     # Port HTTPS public
+      - "${NPM_ADMIN}:81"      # Port interface d'administration
+
+    depends_on:
+      - nginx-proxy-manager-db
+
+    networks:
+      - Homebox_Network
+
+#####
+  nginx-proxy-manager-db:
+    image: jc21/mariadb-aria:latest
+
+    container_name: nginx-proxy-manager-db
+    restart: unless-stopped
+
+    security_opt:
+      - no-new-privileges:true
+
+#    environment:
+#   MYSQL_ROOT_PASSWORD: "${NPM_DB_ROOT_PASSWORD}"
+#    MYSQL_DATABASE: "${NPM_DB_NAME}"
+#    MYSQL_USER: "${NPM_DB_USER}"
+#    MYSQL_PASSWORD: "${NPM_DB_PASSWORD}"
+
+    volumes:
+      - /etc/localtime:/etc/localtime:ro # pour synchroniser l'heure avec l'hôte
+      - ${DOCKER_DATA_PATH}/nginx-proxy-manager/mysql:/var/lib/mysql
+
+    networks:
+      - Homebox_Network
+
+#####
+networks:
+  Homebox_Network:
+    name: ${HOMEBOX_NETWORK}
+    external: true
