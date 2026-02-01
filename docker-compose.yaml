@@ -216,25 +216,6 @@ services:
     networks:
       - Homebox_Network
 
-  pihole:
-    image: pihole/pihole:latest
-    container_name: pihole
-    hostname: pihole
-    restart: unless-stopped
-    environment:
-      TZ: Europe/Paris
-      WEBPASSWORD: ${PIHOLE_ADMIN_PASSWORD}
-      DNSMASQ_LISTENING: all
-    volumes:
-      - ${DOCKER_DATA_PATH}/pihole/etc-pihole:/etc/pihole
-      - ${DOCKER_DATA_PATH}/pihole/etc-dnsmasq.d:/etc/dnsmasq.d
-    ports:
-      - "${PIHOLE_TCP}:53/tcp"
-      - "${PIHOLE_UDP}:53/udp"
-      - "${PIHOLE_HTTP}:80"   # UI Pi-hole (évite conflit avec NPM)
-    networks:
-      - Homebox_Network
-
 networks:
   Homebox_Network:
     name: ${HOMEBOX_NETWORK}
