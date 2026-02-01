@@ -1,11 +1,11 @@
-#!/bin/bash
+:#!/bin/bash
 
 # ========================================
 # HomeBox Backup Script with Telegram notifications
 # ========================================
 
 set -a
-source /opt/Homebox_AI/Env/.env
+source /opt/Homebox_AI/.env
 set +a
 
 set -e
