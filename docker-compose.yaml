@@ -39,13 +39,13 @@ services:
     restart: unless-stopped
     security_opt:
       - no-new-privileges:true
-#    environment:
+    environment:
     # Connexion à la base de données
-#  DB_MYSQL_HOST: "nginx-proxy-manager-db"
-#  DB_MYSQL_PORT: 3306
-#  DB_MYSQL_USER: "${NPM_DB_USER}"
-#  DB_MYSQL_PASSWORD: "${NPM_DB_PASSWORD}"
-#  DB_MYSQL_NAME: "${NPM_DB_NAME}"
+      DB_MYSQL_HOST: "nginx-proxy-manager-db"
+      DB_MYSQL_PORT: 3306
+      DB_MYSQL_USER: "${NPM_DB_USER}"
+      DB_MYSQL_PASSWORD: "${NPM_DB_PASSWORD}"
+      DB_MYSQL_NAME: "${NPM_DB_NAME}"
     volumes:
       - /etc/localtime:/etc/localtime:ro # pour synchroniser l'heure avec l'hôte
       - ${DOCKER_DATA_PATH}/nginx-proxy-manager/data:/data
@@ -59,26 +59,26 @@ services:
     networks:
       - Homebox_Network
 
-#####
   nginx-proxy-manager-db:
     image: jc21/mariadb-aria:latest
-
     container_name: nginx-proxy-manager-db
     restart: unless-stopped
-
     security_opt:
       - no-new-privileges:true
 
-#    environment:
-#   MYSQL_ROOT_PASSWORD: "${NPM_DB_ROOT_PASSWORD}"
-#    MYSQL_DATABASE: "${NPM_DB_NAME}"
-#    MYSQL_USER: "${NPM_DB_USER}"
-#    MYSQL_PASSWORD: "${NPM_DB_PASSWORD}"
-
+    environment:
+      MYSQL_ROOT_PASSWORD: "${NPM_DB_ROOT_PASSWORD}"
+      MYSQL_DATABASE: "${NPM_DB_NAME}"
+      MYSQL_USER: "${NPM_DB_USER}"
+      MYSQL_PASSWORD: "${NPM_DB_PASSWORD}"
     volumes:
       - /etc/localtime:/etc/localtime:ro # pour synchroniser l'heure avec l'hôte
       - ${DOCKER_DATA_PATH}/nginx-proxy-manager/mysql:/var/lib/mysql
-
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
     networks:
       - Homebox_Network
 
@@ -227,7 +227,24 @@ services:
     networks:
       - Homebox_Network
 
-
+  pihole:
+    image: pihole/pihole:latest
+    container_name: pihole
+    hostname: pihole
+    restart: unless-stopped
+    environment:
+      TZ: Europe/Paris
+      WEBPASSWORD: ${PIHOLE_ADMIN_PASSWORD}
+      DNSMASQ_LISTENING: all
+    volumes:
+      - ${DOCKER_DATA_PATH}/pihole/etc-pihole:/etc/pihole
+      - ${DOCKER_DATA_PATH}/pihole/etc-dnsmasq.d:/etc/dnsmasq.d
+    ports:
+      - "${PIHOLE_TCP}:53/tcp"
+      - "${PIHOLE_UDP}:53/udp"
+      - "${PIHOLE_HTTP}:80"   # UI Pi-hole (évite conflit avec NPM)
+    networks:
+      - Homebox_Network
 
 networks:
   Homebox_Network:
