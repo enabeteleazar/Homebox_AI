@@ -22,17 +22,6 @@ services:
     networks:
       - Homebox_Network
 
-  pythonista:
-    build: ./Services/Core/Pythonista
-    ports:
-      - "${PYTHONISTA_HTTP}:5000"
-    environment:
-      - NODE_ENV=production
-      - FLASK_ENV=production
-    restart: always
-    networks:
-      - Homebox_Network
-
   nginx-proxy-manager:
     image: jc21/nginx-proxy-manager:latest
     container_name: nginx-proxy-manager
