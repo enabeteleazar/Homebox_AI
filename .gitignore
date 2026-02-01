@@ -1,13 +1,14 @@
 # =========================
 # Données générés par les services
 # =========================
-neron/*/model
-neron/*/data
-services/*/model/
-services/*/data/
-services/*/node-red/data/
-services/*/n8n/.n8n
-services/homeassistant/config/.storage/
+Neron/*/model
+Neron/*/data
+Services/*/model/
+Services/*/data/
+Services/*/node-red/data/
+Services/*/n8n/.n8n
+Services/homeassistant/config/.storage/
+Data/
 
 # =========================
 # Modèles et données LLM
@@ -64,3 +65,10 @@ pip-wheel-metadata/
 Thumbs.db
 desktop.ini
 labo/
+*.wav
+test.wav
+
+# Python virtual environment
+venv/
+.env
+__pycache__/
