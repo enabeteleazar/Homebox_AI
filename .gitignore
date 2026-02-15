@@ -1,8 +1,6 @@
 # =========================
 # Données générés par les services
 # =========================
-Neron/*/model
-Neron/*/data
 Services/*/model/
 Services/*/data/
 Services/*/node-red/data/
