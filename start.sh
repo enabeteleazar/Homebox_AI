@@ -50,6 +50,6 @@ docker compose --env-file /opt/Homebox_AI/.env up -d --build --remove-orphans
 slow_echo "${GREEN}Tous les services Homebox v1.3.2 sont lancés !${NC}"
 
 # --- Affichage du statut ---
-bash status_homebox.sh
+show_status
 
 slow_echo "${YELLOW}Pour suivre les logs du Core: docker compose logs -f ${NC}"
