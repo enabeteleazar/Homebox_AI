@@ -218,5 +218,6 @@ services:
 
 networks:
   Homebox_Network:
-    name: ${HOMEBOX_NETWORK}
+    external: true
+  Neron_Network:
     external: true
