@@ -4,7 +4,7 @@
 #  HOMEBOX – Vérification des services (hors NERON)
 # ==================================================
 
-echo -e "\033[1;34m[HOMEBOX] Vérification de l'état des services (hors NERON)...\033[0m"
+echo -e "\033[1;34m[HOMEBOX] Vérification de l'état des services ...\033[0m"
 
 # 🔥 Récupère tous les containers
 mapfile -t all_services < <(docker ps -a --format "{{.Names}}")
@@ -21,7 +21,7 @@ offline_list=()
 online_count=0
 offline_count=0
 
-echo -e "\n📊 Services détectés (hors NERON) : ${#services[@]}"
+echo -e "\n📊 Services détectés : ${#services[@]}"
 echo "---------------------------------------------------------"
 printf "%-25s %-20s %-15s\n" "CONTAINER" "PORTS" "STATUS"
 echo "---------------------------------------------------------"
@@ -51,7 +51,7 @@ echo -e "==============================="
 
 # === LISTE DES SERVICES OFFLINE ==================
 if (( offline_count > 0 )); then
-    echo -e "\n⚠️  Services arrêtés (hors NERON) :"
+    echo -e "\n⚠️  Services arrêtés :"
     for s in "${offline_list[@]}"; do
         echo -e "   - $s"
     done
