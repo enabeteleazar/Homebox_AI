@@ -50,7 +50,6 @@ services:
     restart: unless-stopped
     security_opt:
       - no-new-privileges:true
-
     environment:
       MYSQL_ROOT_PASSWORD: "${NPM_DB_ROOT_PASSWORD}"
       MYSQL_DATABASE: "${NPM_DB_NAME}"
@@ -86,64 +85,6 @@ services:
       - /run/dbus:/run/dbus:ro # communication D-Bus pour Bluetooth/intégrations système
     ports:
       - "${HOMEASSISTANT_HTTP}:8123"
-    networks:
-      - Homebox_Network
-
-  n8n:
-    image: n8nio/n8n:latest
-    container_name: n8n
-    restart: unless-stopped
-    security_opt:
-      - no-new-privileges:true
-    volumes:
-      - /etc/localtime:/etc/localtime:ro # pour synchroniser l'heure avec l'hôte
-      - ${DOCKER_DATA_PATH}/n8n/data:/home/node/.n8n # données n8n
-    ports:
-      - "${N8N_HTTP}:5678"
-    environment:
-      - TZ=Europe/Paris
-      - N8N_HOST=${N8N_HOST:-0.0.0.0}
-      - WEBHOOK_URL=${N8N_WEBHOOK_URL}
-      - GENERIC_TIMEZONE=Europe/Paris
-      - N8N_SECURE_COOKIE= false
-    user: "${PUID}:${PGID}" # permissions utilisateur (optionnel)
-    networks:
-      - Homebox_Network
-
-  node-red:
-    image: nodered/node-red:latest
-    container_name: node-red
-    restart: unless-stopped
-    security_opt:
-      - no-new-privileges:true
-    volumes:
-      - /etc/localtime:/etc/localtime:ro # pour synchroniser l'heure avec l'hôte
-      - ${DOCKER_DATA_PATH}/node-red/data:/data # données Node-RED
-    ports:
-      - "${NODE_RED_HTTP}:1880"
-    environment:
-      - TZ=Europe/Paris
-      - NODE_RED_ENABLE_SAFE_MODE=false
-      - NODE_RED_ENABLE_PROJECTS=true
-    user: "${PUID}:${PGID}" # permissions utilisateur (optionnel)
-    networks:
-      - Homebox_Network
-
-####################
-###  MONITORING ###
-##################
-
-  beszel:
-    image: henrygd/beszel:latest
-    container_name: beszel
-    restart: unless-stopped
-    security_opt:
-      - no-new-privileges:true
-    volumes:
-      - /etc/localtime:/etc/localtime:ro # pour synchroniser l'heure avec l'hôte
-      - ${DOCKER_DATA_PATH}/Beszel/data:/beszel_data # données Beszel
-    ports:
-      - "${BESZEL_HTTP}:8090"
     networks:
       - Homebox_Network
 
@@ -198,8 +139,8 @@ services:
       - no-new-privileges:true
     volumes:
       - /etc/localtime:/etc/localtime:ro # pour synchroniser l'heure avec l'hôte
-      - ${DOCKER_DATA_PATH}/prometheus/config:/etc/prometheus # fichiers de configuration
-      - ${DOCKER_DATA_PATH}/prometheus/data:/prometheus # données Prometheus
+      - ../data/prometheus/config:/etc/prometheus
+      - ../data/prometheus/data:/prometheus # données Prometheus
     ports:
       - "${PROMETHEUS_HTTP}:9090"
     command:
@@ -214,6 +155,4 @@ services:
 
 networks:
   Homebox_Network:
-    external: true
-  Neron_Network:
     external: true
